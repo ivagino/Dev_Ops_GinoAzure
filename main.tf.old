@@ -1,0 +1,33 @@
+# Azure Provider source and version being used
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.0.0"
+    }
+  }
+}
+
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+  features {}
+
+  client_id       = 8f16031c-d2ac-4d0a-ab7a-f06d825054ef
+  client_secret   = lpQ8Q~2R7edXlMabZQwhMzZXh9.gjzSU8KqblcqA
+  subscription_id = eeda2866-c5df-4ea0-9204-83e41a294d68
+  tenant_id       = e4d8fcb7-c2c7-4ba5-a9d0-07e3dee9c257
+}
+
+# Create a resource group
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "West Europe"
+}
+
+# Create a virtual network within the resource group
+resource "azurerm_virtual_network" "example" {
+  name                = "example-network"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  address_space       = ["10.0.0.0/16"]
+}
